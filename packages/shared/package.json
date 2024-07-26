@@ -1,0 +1,10 @@
+{
+  "name": "recoil-shared",
+  "description": "This is the internal package.json enabling CommonJS module",
+  "haste_commonjs": true,
+  "directories": {
+    "": "./"
+  },
+  "repository": "https://github.com/facebookexperimental/Recoil.git",
+  "license": "MIT"
+}

@@ -1,0 +1,12 @@
+node_modules/
+build/
+cjs/
+es/
+umd/
+flow-typed/
+recoil_devtools_ext/
+
+yarn.lock
+script/project-root-dir.js
+
+*.md
