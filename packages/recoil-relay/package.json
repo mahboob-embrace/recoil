@@ -1,5 +1,6 @@
 {
   "name": "recoil-relay",
+  "version": "0.7.7",
   "description": "This is the internal package.json enabling CommonJS module",
   "main": "RecoilRelay_index.js",
   "haste_commonjs": true,

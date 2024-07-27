@@ -61,7 +61,7 @@
    environment: IEnvironment | EnvironmentKey,
    subscription: GraphQLTaggedNode,
    variables: Variables | null,
-   mapResponse: (data: any) => T,
+   mapResponse: (data: any, setSelf: any) => void,
  }): AtomEffect<T>;
 
  export function graphQLMutationEffect<

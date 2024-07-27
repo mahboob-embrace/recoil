@@ -106,6 +106,14 @@ function graphQLQueryEffect<
     if (variables == null) {
       return;
     }
+    // return if any of the variables keys are undefined
+    if (
+      Object.keys(variables).some(
+        key => variables[key] === undefined || variables[key] === null,
+      )
+    ) {
+      return;
+    }
 
     let querySubscription, localSubscriptionCleanup;
     const environment = getRelayEnvironment(

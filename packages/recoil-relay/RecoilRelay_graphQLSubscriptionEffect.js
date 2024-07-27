@@ -52,7 +52,7 @@ function graphQLSubscriptionEffect<
   environment: IEnvironment | EnvironmentKey,
   subscription: GraphQLSubscription<TVariables, TData, TRawResponse>,
   variables: TVariables | null,
-  mapResponse: TData => T,
+  mapResponse: any => void,
 }): AtomEffect<T> {
   return ({node, setSelf, trigger, storeID, parentStoreID_UNSTABLE}) => {
     if (variables == null) {
@@ -67,25 +67,27 @@ function graphQLSubscriptionEffect<
 
     let initialResolve, initialReject;
     if (trigger === 'get') {
-      setSelf(
-        new Promise((resolve, reject) => {
-          initialResolve = resolve;
-          initialReject = reject;
-        }),
-      );
+      // setSelf(
+      //   new Promise((resolve, reject) => {
+      //     initialResolve = resolve;
+      //     initialReject = reject;
+      //   }),
+      // );
     }
 
     // Subscribe to remote changes to update atom state
     const graphQLSubscriptionDisposable = requestSubscription(environment, {
       subscription,
       variables,
-      onNext: response => {
-        if (response != null) {
-          const data = mapResponse(response);
-          initialResolve?.(data);
-          setSelf(data);
-        }
-      },
+      onNext: response => mapResponse(response, {setSelf}),
+      //  {
+      // if (response != null) {
+      // initialResolve?.(response);
+      // mapResponse(response, {setSelf});
+      // initialResolve?.(data);
+      // setSelf(data);
+      // }
+      // },
       // TODO use Async atom support to set atom to error state on
       // subsequent errors during incremental updates.
       onError: error => {
