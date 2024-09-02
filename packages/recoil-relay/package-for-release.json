@@ -12,7 +12,7 @@
   "dependencies": {},
   "peerDependencies": {
     "recoil": ">=0.7.3",
-    "react-relay": ">=13.2.0",
-    "relay-runtime": ">=13.2.0"
+    "react-relay": ">=17.0.0",
+    "relay-runtime": ">=17.0.0"
   }
 }

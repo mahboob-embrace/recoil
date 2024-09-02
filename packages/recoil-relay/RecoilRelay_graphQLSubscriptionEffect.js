@@ -79,7 +79,22 @@ function graphQLSubscriptionEffect<
     const graphQLSubscriptionDisposable = requestSubscription(environment, {
       subscription,
       variables,
-      onNext: response => mapResponse(response, {setSelf}),
+      updater: (store, response) => {
+        const firstLevelKeys = Object.keys(response);
+        const {action, ...rest} = response[firstLevelKeys[0]];
+        const secondLevelKey = Object.keys(rest)[0];
+        const data = rest[secondLevelKey];
+        if (action === 'DELETE') {
+          console.log('del-Action', action, data.id);
+          store.delete(data.id);
+          globalThis.source.delete(data.id);
+        } else if (!globalThis.source.has(data.id)) {
+          console.log('set-Action', action, data.id);
+          globalThis.source.set(data.id, data);
+        }
+        return mapResponse(response, {setSelf, store});
+      },
+      // onNext: response =>{ },
       //  {
       // if (response != null) {
       // initialResolve?.(response);

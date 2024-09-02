@@ -133,7 +133,7 @@ function graphQLQueryEffect<
       );
 
       querySubscription = fetchQuery(environment, query, variables, {
-        fetchPolicy: 'store-or-network',
+        fetchPolicy: 'network-only',
       }).subscribe({
         next: response => {
           const data = mapResponse(response);
